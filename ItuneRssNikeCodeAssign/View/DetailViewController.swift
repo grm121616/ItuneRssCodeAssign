@@ -15,7 +15,7 @@ class DetailViewController: UIViewController {
     let artistNameLabel: UILabel = {
         let nameLabel = UILabel()
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        nameLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        nameLabel.font = UIFont.boldSystemFont(ofSize: 15)
         nameLabel.numberOfLines = 0
         return nameLabel
     }()
@@ -23,7 +23,7 @@ class DetailViewController: UIViewController {
     let albumNameLabel: UILabel = {
         let albumName = UILabel()
         albumName.translatesAutoresizingMaskIntoConstraints = false
-        albumName.font = UIFont.boldSystemFont(ofSize: 20)
+        albumName.font = UIFont.boldSystemFont(ofSize: 15)
         albumName.numberOfLines = 0
         return albumName
     }()
@@ -39,7 +39,7 @@ class DetailViewController: UIViewController {
     let releaseDateLabel: UILabel = {
         let releaseDataLabel = UILabel()
         releaseDataLabel.translatesAutoresizingMaskIntoConstraints = false
-        releaseDataLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        releaseDataLabel.font = UIFont.boldSystemFont(ofSize: 15)
         releaseDataLabel.numberOfLines = 0
         return releaseDataLabel
     }()
@@ -47,7 +47,7 @@ class DetailViewController: UIViewController {
     let copyrightLabel: UILabel = {
         let copyrightLabel = UILabel()
         copyrightLabel.translatesAutoresizingMaskIntoConstraints = false
-        copyrightLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        copyrightLabel.font = UIFont.boldSystemFont(ofSize: 15)
         copyrightLabel.numberOfLines = 0
         return copyrightLabel
     }()
@@ -55,7 +55,7 @@ class DetailViewController: UIViewController {
     let genreLabel: UILabel = {
         let genresLabel = UILabel()
         genresLabel.translatesAutoresizingMaskIntoConstraints = false
-        genresLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        genresLabel.font = UIFont.boldSystemFont(ofSize: 15)
         genresLabel.numberOfLines = 0
         return genresLabel
     }()
@@ -71,16 +71,26 @@ class DetailViewController: UIViewController {
     
     let ituneButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor.blue
+        button.backgroundColor = UIColor.green
         button.setTitle(Constant.appStore, for: .normal)
+        button.setTitleColor(UIColor.darkGray, for: .normal)
         button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.layer.cornerRadius = 5
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.gray.cgColor
         return button
     }()
     
     @objc func buttonAction(sender: UIButton!) {
         guard let artistURL = artistUrl, let url = URL(string: artistURL) else { return }
-        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        if UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            let alert = UIAlertController(title: Constant.message, message: Constant.notAvailable, preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: Constant.ok, style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
     override func viewDidLoad() {
@@ -110,16 +120,16 @@ class DetailViewController: UIViewController {
     
     func getConfigure(viewModel: ResultViewModel?) {
         artistUrl = viewModel?.getArtistUrl()
-        artistNameLabel.text = viewModel?.getName()
-        albumNameLabel.text = viewModel?.getAlbumName()
-        releaseDateLabel.text = viewModel?.getReleaseDate()
-        copyrightLabel.text = viewModel?.getCopyRights()
-        genreLabel.text = viewModel?.getGenre()
-        viewModel?.getImage(completion: { (data) in
+        artistNameLabel.text = "Artist: \(viewModel?.getName() ?? Constant.notAvailable)"
+        albumNameLabel.text = "Album : \(viewModel?.getAlbumName() ?? Constant.notAvailable)"
+        releaseDateLabel.text = "Relase Date:  \(viewModel?.getReleaseDate() ?? Constant.notAvailable)"
+        copyrightLabel.text = "Copy Right: \(viewModel?.getCopyRights() ?? Constant.notAvailable)"
+        genreLabel.text = "Genre: \(viewModel?.getGenre() ?? Constant.notAvailable)"
+        viewModel?.getImage{ (data) in
             guard let data = data else { return }
             DispatchQueue.main.async {
                 self.albumImageView.image = UIImage(data: data)
             }
-        })
+        }
     }
 }

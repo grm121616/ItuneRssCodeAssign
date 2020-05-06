@@ -13,5 +13,11 @@ enum Constant {
     
     static let ituneUrl = "https://rss.itunes.apple.com/api/v1/us/apple-music/coming-soon/all/100/explicit.json"
     
-    static let appStore = "Apple Store"
+    static let appStore : String = "Apple Store"
+    
+    static let notAvailable: String = "Not available"
+    
+    static let message: String = "Message"
+    
+    static let ok: String = "OK"
 }

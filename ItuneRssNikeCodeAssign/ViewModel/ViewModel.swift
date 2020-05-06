@@ -35,7 +35,7 @@ class ViewModel: ViewModelProtocol {
     }
     
     func loadData() {
-        apiRequestLoader.loadRequest { (music: ItuneFeeds?, error) in
+        apiRequestLoader.loadRequest { (music: ItunesFeeds?, error) in
             guard let music = music else { return }
             self.results = music.feed.results
         }

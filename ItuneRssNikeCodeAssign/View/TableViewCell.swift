@@ -60,13 +60,13 @@ class TableViewCell: UITableViewCell {
     }
     
     func getConfigure(viewModel: ResultViewModel?) {
-        nameLabel.text = "Artist: \(viewModel?.getName() ?? "Not available")"
-        albumNameLabel.text = "Album: \(viewModel?.getAlbumName() ?? "")"
-        viewModel?.getImage(completion: { (data) in
+        nameLabel.text = "Artist: \(viewModel?.getName() ?? Constant.notAvailable)"
+        albumNameLabel.text = "Album: \(viewModel?.getAlbumName() ?? Constant.notAvailable)"
+        viewModel?.getImage{ (data) in
             guard let data = data else { return }
             DispatchQueue.main.async {
                 self.albumImageView.image = UIImage(data: data)
             }
-        })
+        }
     }
 }

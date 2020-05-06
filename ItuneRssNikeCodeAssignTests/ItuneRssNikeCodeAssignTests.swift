@@ -16,7 +16,7 @@ class ItuneRssNikeCodeAssignTests: XCTestCase {
     var validUrl = "https://rss.itunes.apple.com/api/v1/us/apple-music/coming-soon/all/100/explicit.json"
     
     var ituneRssData: Data {
-        let url = Bundle(for: ItuneRssNikeCodeAssignTests.self).url(forResource: "ItuneRssJson", withExtension: "txt")!
+        let url = Bundle(for: ItuneRssNikeCodeAssignTests.self).url(forResource: "ItuneRssJson", withExtension: "json")!
         let data = try! Data(contentsOf: url)
         return data
     }

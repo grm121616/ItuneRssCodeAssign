@@ -1,5 +1,5 @@
 //
-//  ItuneFeeds.swift
+//  ItunesFeeds.swift
 //  ItuneRssNikeCodeAssign
 //
 //  Created by Ruoming Gao on 5/4/20.
@@ -8,6 +8,6 @@
 
 import Foundation
 
-struct ItuneFeeds: Codable {
+struct ItunesFeeds: Codable {
     let feed: Feed
 }
