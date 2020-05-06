@@ -55,13 +55,13 @@ class TableViewCell: UITableViewCell {
         contentView.addSubview(albumImageView)
         contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-[name]-[albumName]", options: [], metrics: nil, views: viewsDict))
         contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-[name]-[albumImage]", options: [], metrics: nil, views: viewsDict))
-        contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-[albumName]-[albumImage]", options: [], metrics: nil, views: viewsDict))
-        
+        contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-[albumName]-[albumImage]|", options: [], metrics: nil, views: viewsDict))
+        contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-[albumImage(150)]-|", options: [], metrics: nil, views: viewsDict))
     }
     
-    func getConfigure(viewModel: ViewModelresult?) {
-        nameLabel.text = viewModel?.getName()
-        albumNameLabel.text = viewModel?.getAlbumName()
+    func getConfigure(viewModel: ResultViewModel?) {
+        nameLabel.text = "Artist: \(viewModel?.getName() ?? "Not available")"
+        albumNameLabel.text = "Album: \(viewModel?.getAlbumName() ?? "")"
         viewModel?.getImage(completion: { (data) in
             guard let data = data else { return }
             DispatchQueue.main.async {

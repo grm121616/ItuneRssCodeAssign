@@ -9,9 +9,9 @@ import Foundation
 
 class APIRequestLoader {
     let apiRequest: APIRequestConfigure
-    let urlSession: URLSession
+    let urlSession: Session
     
-    init(apiRequest: APIRequestConfigure, urlSession: URLSession = .shared) {
+    init(apiRequest: APIRequestConfigure, urlSession: Session = URLSession.shared) {
         self.apiRequest = apiRequest
         self.urlSession = urlSession
     }
@@ -21,7 +21,7 @@ class APIRequestLoader {
             completionHandler(nil, NetworkError.invalidRequest)
             return
         }
-        let task = urlSession.dataTask(with: request) { (data, _, error) in
+        urlSession.getData(with: request) { (data, error) in
             guard error == nil else {
                 completionHandler(nil, error)
                 return
@@ -37,6 +37,5 @@ class APIRequestLoader {
                 completionHandler(nil, NetworkError.invalidJSONData)
             }
         }
-        task.resume()
     }
 }

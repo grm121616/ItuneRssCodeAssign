@@ -22,7 +22,7 @@ class ItuneRssNikeCodeAssignTests: XCTestCase {
     }
 
     override func setUp() {
-        let apiRequestConfigure = NetworkConfigure(url: validUrl, cachePolicy: nil, timeoutInterval: nil, header: nil, httpBody: nil, httpMethod: nil)
+        let apiRequestConfigure = NetworkRequestConfigure(url: validUrl, cachePolicy: nil, timeoutInterval: nil, header: nil, httpBody: nil, httpMethod: nil)
         let session = URLMockSession(data: ituneRssData, error: nil)
         let apiRequestLoader = APIRequestLoader(apiRequest: apiRequestConfigure, urlSession: session)
         sut = ViewModel(apiRequestLoader: apiRequestLoader)

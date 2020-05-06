@@ -30,7 +30,7 @@ class NetworkTests: XCTestCase {
 
     func testLoadRequestNoData() {
         let mockSession = URLMockSession(data: nil, error: nil)
-        let networkRequestConfig = NetworkConfigure(url: validUrl, cachePolicy: nil, timeoutInterval: nil, header: nil, httpBody: nil, httpMethod: nil)
+        let networkRequestConfig = NetworkRequestConfigure(url: validUrl, cachePolicy: nil, timeoutInterval: nil, header: nil, httpBody: nil, httpMethod: nil)
         sut = APIRequestLoader(apiRequest: networkRequestConfig, urlSession: mockSession)
         sut.loadRequest { (data: Data?, error) in
             XCTAssertNil(data)
@@ -41,7 +41,7 @@ class NetworkTests: XCTestCase {
     
     func testInvalidUrl() {
         let session = URLMockSession(data: nil, error: nil)
-        let networkRequestConfig = NetworkConfigure(url: "", cachePolicy: nil, timeoutInterval: nil, header: nil, httpBody: nil, httpMethod: nil)
+        let networkRequestConfig = NetworkRequestConfigure(url: "", cachePolicy: nil, timeoutInterval: nil, header: nil, httpBody: nil, httpMethod: nil)
         sut = APIRequestLoader(apiRequest: networkRequestConfig, urlSession: session)
         sut.loadRequest { (_: Data?, error) in
             let networkerror = error as? NetworkError
@@ -58,7 +58,7 @@ class NetworkTests: XCTestCase {
         let exp = expectation(description: "wait for network")
         let jsonEncoder = try? JSONEncoder().encode(jsonObject)
         let session = URLMockSession(data: jsonEncoder, error: nil)
-        let networkConfig = NetworkConfigure(url: validUrl, cachePolicy: nil, timeoutInterval: nil, header: nil, httpBody: nil, httpMethod: nil)
+        let networkConfig = NetworkRequestConfigure(url: validUrl, cachePolicy: nil, timeoutInterval: nil, header: nil, httpBody: nil, httpMethod: nil)
         sut = APIRequestLoader(apiRequest: networkConfig, urlSession: session)
         sut.loadRequest { (data: TestModel?, error) in
             exp.fulfill()
@@ -73,7 +73,7 @@ class NetworkTests: XCTestCase {
         let jsonencoder = JSONEncoder()
         let jsonData = try? jsonencoder.encode(TestModel(name: "Jerry", id: 132))
         let session = URLMockSession(data: jsonData, error: nil)
-        let networkConfig = NetworkConfigure(url: validUrl, cachePolicy: nil, timeoutInterval: nil, header: nil, httpBody: nil, httpMethod: nil)
+        let networkConfig = NetworkRequestConfigure(url: validUrl, cachePolicy: nil, timeoutInterval: nil, header: nil, httpBody: nil, httpMethod: nil)
         sut = APIRequestLoader(apiRequest: networkConfig, urlSession: session)
         sut.loadRequest { (data: TestModel?, error) in
             XCTAssertEqual(data?.name, "Jerry")
@@ -83,7 +83,7 @@ class NetworkTests: XCTestCase {
     
     func testUnknownError() {
         let unknownErrorSession = URLMockSession(data: nil, error: NetworkError.unknown)
-        let networkConfig = NetworkConfigure(url: validUrl, cachePolicy: nil, timeoutInterval: nil, header: nil, httpBody: nil, httpMethod: nil)
+        let networkConfig = NetworkRequestConfigure(url: validUrl, cachePolicy: nil, timeoutInterval: nil, header: nil, httpBody: nil, httpMethod: nil)
         sut = APIRequestLoader(apiRequest: networkConfig, urlSession: unknownErrorSession)
         let exp = expectation(description: "wait for network")
         sut.loadRequest { (data: TestModel?, error) in

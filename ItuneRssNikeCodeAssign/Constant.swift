@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Constant {
+enum Constant {
     static let mainTableViewCellIdentifier = "Main tableView Cell"
     
     static let ituneUrl = "https://rss.itunes.apple.com/api/v1/us/apple-music/coming-soon/all/100/explicit.json"

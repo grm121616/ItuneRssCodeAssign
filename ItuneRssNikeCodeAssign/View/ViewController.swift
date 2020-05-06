@@ -16,7 +16,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.rowHeight = 200
         tableView.register(TableViewCell.self, forCellReuseIdentifier: Constant.mainTableViewCellIdentifier)
         let updateCallBack: ()->Void = {
             DispatchQueue.main.async {

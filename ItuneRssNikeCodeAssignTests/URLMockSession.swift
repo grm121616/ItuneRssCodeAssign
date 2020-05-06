@@ -9,19 +9,7 @@
 import Foundation
 @testable import ItuneRssNikeCodeAssign
 
-final class MockDataTask: URLSessionDataTask {
-    private let closure: () -> Void
-    
-    init(closure: @escaping () -> Void) {
-        self.closure = closure
-    }
-    
-    override func resume() {
-        // resume is empty so that it doesnt do any of the network call and controll the mocksession ourself
-    }
-}
-
-final class URLMockSession: URLSession {
+final class URLMockSession: Session {
     
     let error: Error?
     let data: Data?
@@ -32,13 +20,12 @@ final class URLMockSession: URLSession {
         self.error = error
     }
     
-    override func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
-        let data = self.data
-        let error = self.error
-        completionHandler(self.data, nil, self.error)
-        return MockDataTask {
-            completionHandler(data, nil, error)
-        }
+    func getData(with url: URL, completionHandler: @escaping (Data?, Error?) -> Void) {
+        completionHandler(data, error)
+    }
+    
+    func getData(with request: URLRequest, completionHandler: @escaping (Data?, Error?) -> Void) {
+        completionHandler(data, error)
     }
 }
 

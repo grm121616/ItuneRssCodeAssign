@@ -24,8 +24,8 @@ class ViewModel: ViewModelProtocol {
         if let apiRequestLoader = apiRequestLoader {
             self.apiRequestLoader = apiRequestLoader
         } else {
-            let ituneRssNetworkConfig: APIRequestConfigure = ItunesRssNetworkConfig()
-            let apiRequestLoader = APIRequestLoader(apiRequest: ituneRssNetworkConfig)
+            let ituneRssRequestConfig: APIRequestConfigure = ItunesRssRequestConfig()
+            let apiRequestLoader = APIRequestLoader(apiRequest: ituneRssRequestConfig)
             self.apiRequestLoader = apiRequestLoader
         }
     }
@@ -45,15 +45,15 @@ class ViewModel: ViewModelProtocol {
         return results.count
     }
     
-    func getViewModelResult(index: Int) -> ViewModelresult {
-        return ViewModelresult(ituneResult: results[index])
+    func getViewModelResult(index: Int) -> ResultViewModel {
+        return ResultViewModel(ituneResult: results[index])
     }
 }
 
 protocol ViewModelProtocol {
     func loadData()
     func getCount() -> Int
-    func getViewModelResult(index: Int) -> ViewModelresult
+    func getViewModelResult(index: Int) -> ResultViewModel
     func registerUpdate(updateCallBack: @escaping ()->Void)
 }
 

@@ -80,9 +80,6 @@ class DetailViewController: UIViewController {
     
     @objc func buttonAction(sender: UIButton!) {
         guard let artistURL = artistUrl, let url = URL(string: artistURL) else { return }
-//        var urlComponent = URLComponents(string: artistURL)
-//        urlComponent?.scheme = "itms-apps"
-//        guard let url = urlComponent?.url else { return }
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
     
@@ -111,7 +108,7 @@ class DetailViewController: UIViewController {
         view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-20-[ituneButton]-20-|", options: [], metrics: nil, views: viewsDict))
     }
     
-    func getConfigure(viewModel: ViewModelresult?) {
+    func getConfigure(viewModel: ResultViewModel?) {
         artistUrl = viewModel?.getArtistUrl()
         artistNameLabel.text = viewModel?.getName()
         albumNameLabel.text = viewModel?.getAlbumName()

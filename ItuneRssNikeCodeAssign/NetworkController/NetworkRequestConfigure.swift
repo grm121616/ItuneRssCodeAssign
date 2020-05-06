@@ -1,5 +1,5 @@
 //
-//  NetworkConfigure.swift
+//  NetworkRequestConfigure.swift
 //  ItuneRssNikeCodeAssign
 //
 //  Created by Ruoming Gao on 5/4/20.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct NetworkConfigure: APIRequestConfigure {
+struct NetworkRequestConfigure: APIRequestConfigure {
     var url: String
     
     var cachePolicy: URLRequest.CachePolicy?

@@ -1,5 +1,5 @@
 //
-//  ViewModelresult.swift
+//  ResultViewModel.swift
 //  ItuneRssNikeCodeAssign
 //
 //  Created by Ruoming Gao on 5/4/20.
@@ -8,13 +8,7 @@
 
 import Foundation
 
-protocol Session {
-    func dataTask(with: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask
-}
-
-extension URLSession: Session {}
-
-struct ViewModelresult {
+struct ResultViewModel {
     private let ituneResult: Result
     
     init(ituneResult: Result) {
@@ -47,8 +41,8 @@ struct ViewModelresult {
     
     func getImage(session: Session = URLSession.shared ,completion: @escaping(Data?)->Void) {
         let url = ituneResult.artworkUrl100
-        session.dataTask(with: url) { (data, _, _) in
+        session.getData(with: url) { (data, _) in
             completion(data)
-        }.resume()
+        }
     }
 }

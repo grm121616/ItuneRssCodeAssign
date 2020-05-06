@@ -1,5 +1,5 @@
 //
-//  ItunesRssNetworkConfig.swift
+//  ItunesRssRequestConfig.swift
 //  ItuneRssNikeCodeAssign
 //
 //  Created by Ruoming Gao on 5/5/20.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ItunesRssNetworkConfig: APIRequestConfigure {
+struct ItunesRssRequestConfig: APIRequestConfigure {
     var url: String = Constant.ituneUrl
     
     var cachePolicy: URLRequest.CachePolicy?
